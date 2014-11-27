@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJBException;
 import javax.ejb.Stateful;
 import twitter4j.Twitter;
@@ -70,11 +68,14 @@ public class TwitterSB implements SocialSBLocal {
                 }
             }
             ConfigurationBuilder cb = new ConfigurationBuilder();
-            cb.setOAuthConsumerKey("KCmBWRSF6uY5UvzKyyg8JyCJc").setOAuthConsumerSecret("z63CL07tVzQBAZIjNMJFaiQuUKn9FxJPz6V6VQ6esRVrTDorBX").setOAuthAccessToken(prop.getProperty("oauth.accessToken")).setOAuthAccessTokenSecret(prop.getProperty("oauth.accessTokenSecret"));
+            cb.setOAuthConsumerKey("KCmBWRSF6uY5UvzKyyg8JyCJc")
+                    .setOAuthConsumerSecret("z63CL07tVzQBAZIjNMJFaiQuUKn9FxJPz6V6VQ6esRVrTDorBX")
+                    .setOAuthAccessToken(prop.getProperty("oauth.accessToken"))
+                    .setOAuthAccessTokenSecret(prop.getProperty("oauth.accessTokenSecret"));
             twitter = new TwitterFactory(cb.build()).getInstance();
             twitter.updateStatus(message);
         } catch (TwitterException e) {
-            throw new EJBException("Error en el twitter sb al twittear");
+            throw new EJBException("Error en el twitter sb al twittear", e);
         }
     }
 
@@ -99,7 +100,8 @@ public class TwitterSB implements SocialSBLocal {
         if (file.exists()) {
             file.delete();
         }
-        return "OK";
+        assert (!file.exists());//Se asegura que se haya borrado el archivo
+        return "Se han borrado los datos de su cuenta. Por favor, elimine los permisos otorgados desde su configuración";
     }
 
     @Override
@@ -121,14 +123,11 @@ public class TwitterSB implements SocialSBLocal {
             prop.store(os, nombreArchivo);
             os.close();
         } catch (TwitterException ex) {
-            throw new EJBException("Ocurrió un problema al activar su cuenta. Por favor intente nuevamente");
+            throw new EJBException("Ocurrió un problema al activar su cuenta. Por favor intente nuevamente", ex);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TwitterSB.class.getName()).log(Level.SEVERE, null, ex);
+            throw new EJBException("Ocurrió un problema al guardar los datos de su cuenta. Por favor intente nuevamente.", ex);
         } catch (IOException ex) {
-            Logger.getLogger(TwitterSB.class.getName()).log(Level.SEVERE, null, ex);
+            throw new EJBException("Ocurrió un problema al guardar los datos de su cuenta. Por favor intente nuevamente.", ex);
         }
-
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }

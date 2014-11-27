@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.easytasks.social.implementations;
 
 import com.easytasks.social.interfaces.SocialSBLocal;
@@ -18,25 +17,22 @@ import javax.ejb.Stateful;
 public class FacebookSB implements SocialSBLocal {
 
     @Override
-    public void post(String nombreUsuario,String message) throws EJBException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void post(String nombreUsuario, String message) throws EJBException {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
     public String connect(String nombreUsuario) {
-        return "La concha de tu madre";
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public String disconnect(String nombreUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Override
-    public void ingresarPin(String nombreUsuario,String pin) throws EJBException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void ingresarPin(String nombreUsuario, String pin) throws EJBException {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 }
