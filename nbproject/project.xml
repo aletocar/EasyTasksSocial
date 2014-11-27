@@ -6,6 +6,7 @@
             <name>EasyTasksSocial</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">file.reference.twitter4j-core-4.0.2.jar</included-library>
+            <included-library dirs="200">file.reference.FacebookBlackBerrySDK-v0.8.25.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>
